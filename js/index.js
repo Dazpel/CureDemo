@@ -1,3 +1,7 @@
+window.onload = () => {
+  introMusic.play();
+};
+
 let introMusic = document.getElementById('start');
 let playingMusic = document.getElementById('playing');
 let stepMusic = document.getElementById('step');
@@ -21,7 +25,7 @@ let gameTracker = {
   alive: true,
 };
 
-introMusic.play();
+
 
 const begin = () => {
   createObstacles();
@@ -502,8 +506,3 @@ function startGame() {
 
 
 
-// window.onload = () => {
-//   createObstacles();
-//   createVirus();
-//   startGame();
-// };
