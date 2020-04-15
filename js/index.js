@@ -1,3 +1,5 @@
+/* Alex Starter Code */
+
 window.onload = () => {
   introMusic.play();
 };
@@ -56,7 +58,7 @@ const tracker = () => {
 </div>`;
   trackDiv.innerHTML = initVal;
 }
-/////////////////////////////////////////////////////////
+/* Alex End Code */
 
 
 let canvas = document.querySelector('canvas');
@@ -83,7 +85,7 @@ let frameCount = 0;
 let virusCount = 0;
 
 
-//HUGO CODE
+/* HUGO CODE */
 
 //  NEW IMAGES
 let canvasSize = {
@@ -140,7 +142,6 @@ function drawColumn() {
   }
 }
 
-
 function drawColCanvas() {
   ctx.drawImage(colCanvas, canvasSize.x, canvasSize.y, canvasSize.w, canvasSize.h)
 }
@@ -163,7 +164,7 @@ function drawRocks() {
   ctx.drawImage(rockImg, 320, 30, 70, 90)
 }
 
-// HUGO CODE
+/* END HUGO CODE */
 
 let player = {
   //This is your player object
@@ -502,14 +503,23 @@ function startGame() {
   
   stepMusic.pause()
 
-  drawMetalFloor();
+drawCanvas();
+
+// THIS IS THE SCENARIO, NEED A WAY TO PUT IT IN AN OBJECT
+
+// drawMontCanvas();
+// drawRocks()
+// drawTree()
+// drawColumn()
+// drawMetalFloor();
   
-  // drawCanvas();
   drawVirus(virusCount);
+
   for(i=0;i<obstacle.length;i++)
   {
     drawObstacles(obstacle[i]);
   }
+
   for(j=0;j<virus.length;j++)
   {
     drawVirusObs(virus[j])
@@ -576,6 +586,7 @@ function startGame() {
     }
   }
   if(lives <= 0)
+
   {
     ctx.fillStyle = 'black'
     ctx.fillRect(0,0,700,500)
@@ -584,8 +595,6 @@ function startGame() {
     ctx.fillText('Game Over',250,245)
     playingMusic.pause()
     gameOver.play()
-
-
    
   }
   animateId = window.requestAnimationFrame(startGame); //Game rendering -infinite loop that goes super fast
