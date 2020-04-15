@@ -18,6 +18,7 @@ gameOver.volume = 0.3;
 lives = 3;
 let gameTracker = {
   name: 'John Doe',
+  sex: 1,
   country: 'Colombia',
   level: 1,
   hp: 100,
@@ -47,9 +48,30 @@ const setPlayField = () => {
   ).style.backgroundImage = `url('../images/bogota.jpg')`;
 };
 
+const setPlayerSex = (n) => {
+  
+    switch (Number(n)) {
+      case 1:
+        img.src = './images/sprite.png';
+        break;
+        case 2:
+          img.src = './images/female.png';
+        break;
+        case 3:
+          img.src = './images/skeleton.png';
+        break;
+      default:
+        break;
+    }
+  
+  }
+
+
 const begin = () => {
   setPlayField(); //Clear landingPage info
   gameTracker.name = document.getElementById('name').value
+  gameTracker.sex = document.getElementById('sex').value
+  setPlayerSex(gameTracker.sex); 
   tracker(); //Init scoreboard info
   createObstacles();
   createVirus();
@@ -72,9 +94,8 @@ let canMove = true;
 let stageCounter = 0;
 let direction = '';
 let img = new Image();
-img.src = './images/sprite.png'; // Loads player
+img.src = './images/skeleton.png';// Loads player
 let contamination = 0;
-
 let currentLoopIndex = 0;
 let frameCount = 0;
 let virusCount = 0;
