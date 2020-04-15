@@ -1,20 +1,19 @@
 /* Alex Starter Code */
-
-window.onload = () => {
+window.onload = () => { 
   introMusic.play();
 };
 
-let introMusic = document.getElementById('start');
-let playingMusic = document.getElementById('playing');
-let stepMusic = document.getElementById('step');
-let successMusic = document.getElementById('success');
-let gameOver = document.getElementById('gameOver');
-
-introMusic.volume = 0.1;
-playingMusic.volume = 0.03;
-stepMusic.volume=0.04;
-successMusic.volume=0.03;
-gameOver.volume=0.3;
+  let introMusic = document.getElementById('start');
+  let playingMusic = document.getElementById('playing');
+  let stepMusic = document.getElementById('step');
+  let successMusic = document.getElementById('success');
+  let gameOver = document.getElementById('gameOver');
+  
+  introMusic.volume = 0.1;
+  playingMusic.volume = 0.03;
+  stepMusic.volume=0.04;
+  successMusic.volume=0.03;
+  gameOver.volume=0.3;
 
 
 let gameTracker = {
@@ -27,30 +26,7 @@ let gameTracker = {
   alive: true,
 };
 
-
-
-const begin = () => {
-  createObstacles();
-  createVirus();
-  startGame();
-  introMusic.pause();
-  playingMusic.play();
-
-  tracker();
-  
-  document.getElementById('explodeCovid').style.display = 'none';
-  document.getElementById('mainPage').style.display = 'none';
-
-  document.getElementById('game-board').style.display = 'grid';
-
-  document.getElementById(
-    'body'
-  ).style.backgroundImage = `url('../images/bogota.jpg')`;
- 
-};
-
-//Update GAME TRACKER INFO
-const tracker = () => {
+const tracker = () => {       //Update GAME TRACKER INFO
   let trackDiv = document.getElementById('gameTracker');
   let initVal = `<div id="gInfo"><h1>${gameTracker.country}: Level ${gameTracker.level}/5</h1>
   <h3>${gameTracker.name} Health: ${gameTracker.hp}pts - Lysols Left: ${gameTracker.lysols}</h3></div></div>
@@ -58,13 +34,31 @@ const tracker = () => {
 </div>`;
   trackDiv.innerHTML = initVal;
 }
+
+const setPlayField = () => {
+  document.getElementById('explodeCovid').style.display = 'none';
+  document.getElementById('mainPage').style.display = 'none';
+  document.getElementById('game-board').style.display = 'grid';
+  document.getElementById('body').style.backgroundImage = `url('../images/bogota.jpg')`;
+}
+
+const begin = () => {
+  setPlayField()    //Clear landingPage info
+  tracker();           //Init scoreboard info
+  createObstacles();
+  createVirus();
+  startGame();
+  introMusic.pause();
+  playingMusic.play();
+};
+
+
 /* Alex End Code */
 
 
 let canvas = document.querySelector('canvas');
 let ctx = canvas.getContext('2d');
 let animateId = null;
-
 let newLevel = false;
 let lightCounter = 0;
 let lightSwitch = false;
@@ -75,10 +69,6 @@ let direction = ''
 let img = new Image();
 img.src = './images/sprite.png'; // Loads player
 let contamination = 0;
-const faceUp = 520;
-const faceLeft = 580;
-const faceDown = 650;
-const faceRight = 710;
 lives = 3;
 let currentLoopIndex = 0;
 let frameCount = 0;
@@ -168,32 +158,17 @@ function drawRocks() {
 
 let player = {
   //This is your player object
-  sx: 10,
-  sy: 710,
-  sw: 40,
-  sh: 60,
+  sx: 0,
+  sy: 704,
+  sw: 64,
+  sh: 64,
   x: 0,
   y: 0,
-  w: 40,
-  h: 60,
+  w: 64,
+  h: 64,
   image: img,
 };
-const movement = [
-  10,
-  75,
-  10,
-  140,
-  75,
-  205,
-  140,
-  265,
-  205,
-  330,
-  265,
-  395,
-  460,
-  525,
-];
+
 function faceDirection(frameX, frameY, canvasX, canvasY) {
   ctx.drawImage(
     img,
@@ -211,6 +186,7 @@ function faceDirection(frameX, frameY, canvasX, canvasY) {
   player.x = canvasX;
   player.y = canvasY;
 }
+
 function drawPlayer(){
   ctx.drawImage(
     img,
@@ -225,34 +201,36 @@ function drawPlayer(){
   );
 }
 function step(dir) {
-  frameCount++;
-  if (frameCount < 5) {
-   //window.requestAnimationFrame(step);
-    return;
-  }
-  frameCount = 0;
-  //drawPlayer()
+
   switch (dir) {
     case 'up':
-      faceDirection(movement[currentLoopIndex], faceUp, player.x, player.y);
+      if(player.sx>=512){
+        player.sx = 0;
+      }
+      faceDirection(player.sx+=64, 512, player.x, player.y);
       break;
     case 'down':
-      faceDirection(movement[currentLoopIndex], faceDown, player.x, player.y);
+      if(player.sx>=512){
+        player.sx = 0;
+      }
+      faceDirection(player.sx+=64, 640, player.x, player.y);
       break;
     case 'left':
-      faceDirection(movement[currentLoopIndex], faceLeft, player.x, player.y);
+      if(player.sx>=512){
+        player.sx = 0;
+      }
+      faceDirection(player.sx+=64, 576, player.x, player.y);
       break;
     case 'right':
-      faceDirection(movement[currentLoopIndex], faceRight, player.x, player.y);
+      if(player.sx>=512){
+        player.sx = 0;
+      }
+      faceDirection(player.sx+=64, 704, player.x, player.y);
       break;
     default:
       break;
   }
-  currentLoopIndex++;
-  if (currentLoopIndex >= movement.length) {
-    currentLoopIndex = 0;
-  }
-  //window.requestAnimationFrame(step);
+
 }
 var object = {
   x: Math.floor(Math.random()*550 + 50),
@@ -505,14 +483,6 @@ function startGame() {
 
 drawCanvas();
 
-// THIS IS THE SCENARIO, NEED A WAY TO PUT IT IN AN OBJECT
-
-// drawMontCanvas();
-// drawRocks()
-// drawTree()
-// drawColumn()
-// drawMetalFloor();
-  
   drawVirus(virusCount);
 
   for(i=0;i<obstacle.length;i++)
@@ -599,6 +569,7 @@ drawCanvas();
   }
   animateId = window.requestAnimationFrame(startGame); //Game rendering -infinite loop that goes super fast
 }
+
 
 
 
