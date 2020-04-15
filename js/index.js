@@ -423,28 +423,28 @@ function detectCollision(obs) {
         if (player.x <= 0) {
           console.log('Border');
         } else {
-          player.x += 5;
+          player.x += 10;
         }
         break;
       case 'right':
         if (player.x === 650) {
           console.log('Border');
         } else {
-          player.x -= 5;
+          player.x -= 10;
         }
         break;
       case 'up':
         if (player.y <= 0) {
           console.log('Border');
         } else {
-            player.y += 5;
+            player.y += 10;
         }
         break;
       case 'down':
         if (player.y === 450) {
           console.log('Border');
         } else {
-          player.y -= 5;
+          player.y -= 10;
         }
         break;
     }  
