@@ -81,6 +81,90 @@ lives = 3;
 let currentLoopIndex = 0;
 let frameCount = 0;
 let virusCount = 0;
+
+
+//HUGO CODE
+
+//  NEW IMAGES
+let canvasSize = {
+  x:0,
+  y:0,
+  w:700,
+  h:500,
+}
+let colCanvas = new Image();
+colCanvas.src = '/images/mat to colombia.jpg'
+let montCanvas = new Image();
+montCanvas.src = '/images/map to montenegro.jpg'
+let grceCanvas = new Image();
+grceCanvas.src = '/images/map to greece.jpg'
+let treeImg = new Image();
+treeImg.src = '/images/tree.png'
+let rockImg = new Image();
+rockImg.src = '/images/rocks.png'
+let mountainImg = new Image();
+mountainImg.src = '/images/mountain.png'
+let metalFloorCanvas = new Image();
+metalFloorCanvas.src = '/images/metalfloor.png'
+let column = new Image();
+column.src = '/images/greek-column.png'
+
+let hugostacle = [
+  {
+    x: 100,
+    y: Math.floor(Math.random()* 300),
+    w: 30,
+    h: 200
+  },
+  {
+    x: 300,
+    y: Math.floor(Math.random()* 50 + 250),
+    w: 30,
+    h: 200
+  },
+  {
+    x: 450,
+    y: Math.floor(Math.random()* 300),
+    w: 30,
+    h: 200
+  }
+]
+function drawLog() {
+  for(i = 0; i < hugostacle.length; i++){
+  ctx.drawImage(logImg, hugostacle[i].x, hugostacle[i].y, hugostacle[i].w, hugostacle[i].h);
+  }
+}
+function drawColumn() {
+  for(i = 0; i < hugostacle.length; i++){
+  ctx.drawImage(column, hugostacle[i].x, hugostacle[i].y, 60, hugostacle[i].h);
+  }
+}
+
+
+function drawColCanvas() {
+  ctx.drawImage(colCanvas, canvasSize.x, canvasSize.y, canvasSize.w, canvasSize.h)
+}
+function drawMontCanvas() {
+  ctx.drawImage(montCanvas, canvasSize.x, canvasSize.y, canvasSize.w, canvasSize.h)
+}
+function drawGrceCanvas() {
+  ctx.drawImage(grceCanvas, canvasSize.x, canvasSize.y, canvasSize.w, canvasSize.h)
+}
+function drawMetalFloor() {
+  ctx.drawImage(metalFloorCanvas, canvasSize.x, canvasSize.y, canvasSize.w, canvasSize.h)
+}
+function drawTree() {
+  ctx.drawImage(treeImg, 320, 200, 70, 90)
+}
+function drawMountain(){
+  ctx.drawImage(mountainImg, 320, 300, 70, 90)
+}
+function drawRocks() {
+  ctx.drawImage(rockImg, 320, 30, 70, 90)
+}
+
+// HUGO CODE
+
 let player = {
   //This is your player object
   sx: 10,
@@ -417,7 +501,10 @@ function startGame() {
   tracker()
   
   stepMusic.pause()
-  drawCanvas();
+
+  drawMetalFloor();
+  
+  // drawCanvas();
   drawVirus(virusCount);
   for(i=0;i<obstacle.length;i++)
   {
