@@ -555,11 +555,9 @@ function detectVirusCollision() {
   ) {
     // collision detected!
     contamination+=level;
-    if (contamination%4 === 0)
-    {
-      gameTracker.hp--
-    }
-    if (contamination === 400) {
+    
+    gameTracker.hp = 100 - Math.floor(contamination/4)
+    if (contamination >= 400) {
       gameTracker.hp = 100
       lives--;
       contamination = 0;
