@@ -709,7 +709,7 @@ function startGame() {
             canvasBack.image.src = './images/map to montenegro.jpg'
             obstacleImage.src = './images/log.png'
             levelLoadText = 'You are headed to Montenegro! Good Luck!'
-            winImage.src = './images/stefan.png'
+            winImage.src = './images/stefan.jpeg'
             break;
           case 3:
             canvasBack.image.src = './images/map to greece.jpg'
@@ -718,9 +718,22 @@ function startGame() {
             winImage.src = './images/niko.png'
             break;
           case 4:
+            canvasBack.image.src = './images/metalfloor.png'
+            obstacleImage.src = './images/greekcolumn.png'
+            levelLoadText = 'You are headed back to Ironlabs! Good Luck'
+            winImage.src = './images/niko.png'
             break;
         }
       }
+    }
+    if (level === 5)
+    {
+      ctx.fillStyle = 'black';
+      ctx.fillRect(0, 0, 700, 500);
+      ctx.fillStyle = 'white';
+      ctx.font = '50px serif';
+      ctx.fillText('You Win!', 250, 245);
+      playingMusic.pause();
     }
     if (lives <= 0) {
       ctx.fillStyle = 'black';
