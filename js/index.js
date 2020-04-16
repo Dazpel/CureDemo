@@ -615,6 +615,15 @@ function startGame() {
       ctx.fillText('You Win!', 250, 245);
       playingMusic.pause();
     }
+  else if (lives <= 0) {
+    ctx.fillStyle = 'black';
+    ctx.fillRect(0, 0, 700, 500);
+    ctx.fillStyle = 'white';
+    ctx.font = '50px serif';
+    ctx.fillText('Game Over', 250, 245);
+    playingMusic.pause();
+    gameOver.play();
+  }
   else{
     if(levelLoadScreen <= 300)
     {
@@ -642,6 +651,13 @@ function startGame() {
       }
 
       for (j = 0; j < virus.length; j++) {
+        if(level === 4)
+        {
+          virus[j].x -= .05
+          virus[j].y -= .05
+          virus[j].w += .1
+          virus[j].h += .1
+        }
         drawVirusObs(virus[j]);
       }
       winningShade();
@@ -697,7 +713,7 @@ function startGame() {
           deleteVirus(j);
         }
         canMove = false;
-        if(stage === 5)
+        if(stage === 1)
           {
             levelLoadScreen = 0
             stage = 0
@@ -752,15 +768,7 @@ function startGame() {
         }
       }
       
-      if (lives <= 0) {
-        ctx.fillStyle = 'black';
-        ctx.fillRect(0, 0, 700, 500);
-        ctx.fillStyle = 'white';
-        ctx.font = '50px serif';
-        ctx.fillText('Game Over', 250, 245);
-        playingMusic.pause();
-        gameOver.play();
-      }
+      
     }
   }
   animateId = window.requestAnimationFrame(startGame); //Game rendering -infinite loop that goes super fast
