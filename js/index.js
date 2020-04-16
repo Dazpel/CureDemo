@@ -108,6 +108,7 @@ let stage = 1
 let levelLoadScreen = 0
 let levelLoadText = 'You are headed to Columbia! Good Luck!'
 
+
 /* HUGO CODE */
 
 //  NEW IMAGES
@@ -119,20 +120,19 @@ let canvasBack = {
   h:500,
 }
 let colCanvas = new Image();
-colCanvas.src = '/images/mat to colombia.jpg';
+colCanvas.src = './images/mat to colombia.jpg'
 let montCanvas = new Image();
-montCanvas.src = '/images/map to montenegro.jpg';
+montCanvas.src = './images/map to montenegro.jpg'
 let grceCanvas = new Image();
-grceCanvas.src = '/images/map to greece.jpg';
+grceCanvas.src = './images/map to greece.jpg'
 let treeImg = new Image();
-treeImg.src = '/images/tree.png';
+treeImg.src = './images/tree.png'
 let rockImg = new Image();
-rockImg.src = '/images/rocks.png';
+rockImg.src = './images/rocks.png'
 let mountainImg = new Image();
-mountainImg.src = '/images/mountain.png'
-mountainImg.src = '/images/mountain.png';
+mountainImg.src = './images/mountain.png'
 let metalFloorCanvas = new Image();
-metalFloorCanvas.src = '/images/metalfloor.png';
+metalFloorCanvas.src = './images/metalfloor.png'
 let column = new Image();
 column.src = '/images/greek-column.png';
 let fogImg = new Image();
@@ -189,14 +189,6 @@ function drawColumn() {
     );
   }
 }
-let colCanvas = new Image();
-colCanvas.src = '/images/mat to colombia.jpg'
-let montCanvas = new Image();
-montCanvas.src = '/images/map to montenegro.jpg'
-let grceCanvas = new Image();
-grceCanvas.src = '/images/map to greece.jpg'
-let metalFloorCanvas = new Image();
-metalFloorCanvas.src = '/images/metalfloor.png'
 
 function drawColCanvas() {
   ctx.drawImage(
@@ -235,6 +227,7 @@ function drawMetalFloor() {
   );
 
 }
+
 function drawFloor(image){ // <--optional: Depending on what works best with code
   ctx.drawImage(image, canvasSize.x, canvasSize.y, canvasSize.w, canvasSize.h)
 } // ^Combines these functions in one 
@@ -368,7 +361,7 @@ function createObstacles() {
   for (i = 0; i < 3; i++) {
     let obs = {
       image: obstacleImage,
-      x: 50 + Math.floor(Math.random() * 125) + 200 * i,
+      x: 70 + Math.floor(Math.random() * 125) + 200 * i,
       y: Math.floor(Math.random() * 50 + 250 * (i % 2)),
       w: 30,
       h: 200,
@@ -380,7 +373,7 @@ function createVirus() {
   for (i = 0; i < 3; i++) {
     let obs = {
       image: covidImage,
-      x: 50 + Math.floor(Math.random() * 125) + 200 * i,
+      x: 70 + Math.floor(Math.random() * 125) + 200 * i,
       y: Math.floor(Math.random() * 50 + 250 * (i % 2)),
       w: 50,
       h: 50,
@@ -395,19 +388,17 @@ function deleteVirus(index) {
   virus.splice(index, 1);
 }
 function drawObstacles(obj) {
-  // ctx.fillStyle = 'red';
-  // ctx.fillRect(obj.x, obj.y, obj.w, obj.h);
+  //ctx.fillStyle = 'red';
+  //ctx.fillRect(obj.x, obj.y, obj.w, obj.h);
+  //console.log(obj)
   ctx.drawImage(obj.image, obj.x, obj.y, obj.w, obj.h)
 }
 function drawVirusObs(obj) {
-  // ctx.fillStyle = 'blue';
-  // ctx.fillRect(obj.x, obj.y, obj.w, obj.h);
+  //ctx.fillStyle = 'blue';
+  //ctx.fillRect(obj.x, obj.y, obj.w, obj.h)
   ctx.drawImage(obj.image, obj.x, obj.y, obj.w, obj.h)
 }
-// function winningShade() {
-//   ctx.fillStyle = 'blue';
-//   ctx.fillRect(win.x, win.y, win.w, win.h);
-// }
+
 function lightsOff() {
   ctx.fillStyle = 'black';
   ctx.fillRect(0, 0, 700, 500);
@@ -424,7 +415,6 @@ function drawVirus(i) {
   fog.w=i-25 
 }
 
-
 function detectMove(move) {
   if (move) {
     switch (direction) {
@@ -433,15 +423,15 @@ function detectMove(move) {
         if (player.x <= 0) {
           console.log('Border');
         } else {
-          player.x -= 10;
+          player.x -= 5;
         }
         break;
       case 'right':
         stepMusic.play();
-        if (player.x === 660) {
+        if (player.x >= 636) {
           console.log('Border');
         } else {
-          player.x += 10;
+          player.x += 5;
         }
         break;
       case 'up':
@@ -449,15 +439,25 @@ function detectMove(move) {
         if (player.y <= 0) {
           console.log('Border');
         } else {
-          player.y -= 10;
+          player.y -= 5;
         }
         break;
       case 'down':
-        stepMusic.play();
-        if (player.y === 440) {
-          console.log('Border');
-        } else {
-          player.y += 10;
+        stepMusic.play()
+        if(level === 2)
+        {
+          if (player.y >= 336) {
+            console.log('Border');
+          } else {
+            player.y += 5;
+          }
+        }
+        else{
+          if (player.y >= 436) {
+            console.log('Border');
+          } else {
+            player.y += 5;
+          }
         }
         break;
     }
@@ -487,7 +487,7 @@ document.body.onkeydown = function (e) {
 function detectCollision(obs) {
   // obs.map((obj) => {
   var a = { x: obs.x, y: obs.y, width: obs.w, height: obs.h }; //Our obstacles
-  var b = { x: player.x, y: player.y, width: player.w, height: player.h }; //Our player
+  var b = { x: player.x+20, y: player.y+15, width: player.w-40, height: player.h-15 }; //Our player
   if (
     a.x < b.x + b.width &&
     a.x + a.width > b.x &&
@@ -500,14 +500,14 @@ function detectCollision(obs) {
         if (player.x <= 0) {
           console.log('Border');
         } else {
-          player.x += 10;
+          player.x += 5;
         }
         break;
       case 'right':
-        if (player.x === 650) {
+        if (player.x >= 636) {
           console.log('Border');
         } else {
-          player.x -= 10;
+          player.x -= 5;
         }
         break;
       case 'up':
@@ -518,19 +518,20 @@ function detectCollision(obs) {
         }
         break;
       case 'down':
-        if (player.y === 450) {
+        if (player.y >= 436) {
           console.log('Border');
         } else {
-          player.y -= 10;
+          player.y -= 5;
         }
         break;
     }
   }
   
 }
-function detectVirusObsCollision(obs,index) {
+
+function detectVirusObsCollision (obs,index) {
   var a = { x: obs.x, y: obs.y, width: obs.w, height: obs.h }; //Our obstacles
-  var b = { x: player.x, y: player.y, width: player.w, height: player.h }; //Our player
+  var b = { x: player.x+20, y: player.y+15, width: player.w-40, height: player.h-15 }; //Our player
   if (
     a.x < b.x + b.width &&
     a.x + a.width > b.x &&
@@ -545,7 +546,7 @@ function detectVirusObsCollision(obs,index) {
 }
 function detectVirusCollision() {
   var a = { x: 0, y: 0, width: -25 + virusCount, height: 500 }; //Our virus
-  var b = { x: player.x, y: player.y, width: player.w, height: player.h }; //Our player
+  var b = { x: player.x+20, y: player.y+15, width: player.w-40, height: player.h-15 }; //Our player
   if (
     a.x < b.x + b.width &&
     a.x + a.width > b.x &&
@@ -562,6 +563,7 @@ function detectVirusCollision() {
       gameTracker.hp = 100
       lives--;
       contamination = 0;
+
     }
     tracker()
   }
@@ -705,10 +707,15 @@ function startGame() {
             break;
           case 2:
             canvasBack.image.src = './images/map to montenegro.jpg'
-            obstacleImage.src = './images/greekcolumn.png'
+            obstacleImage.src = './images/log.png'
             levelLoadText = 'You are headed to Montenegro! Good Luck!'
+            winImage.src = './images/stefan.png'
             break;
           case 3:
+            canvasBack.image.src = './images/map to greece.jpg'
+            obstacleImage.src = './images/greekcolumn.png'
+            levelLoadText = 'You are headed to Greece! Good Luck'
+            winImage.src = './images/niko.png'
             break;
           case 4:
             break;
