@@ -7,13 +7,17 @@ let introMusic = document.getElementById('start');
 let playingMusic = document.getElementById('playing');
 let stepMusic = document.getElementById('step');
 let successMusic = document.getElementById('success');
+let finalLevel = document.getElementById('finalLevel');
 let gameOver = document.getElementById('gameOver');
+let gameWin= document.getElementById('gameWin');
 
 introMusic.volume = 0.1;
 playingMusic.volume = 0.03;
 stepMusic.volume = 0.04;
 successMusic.volume = 0.03;
 gameOver.volume = 0.3;
+gameWin.volume = 0.4;
+finalLevel.volume = 0.3;
 
 lives = 3;
 let gameTracker = {
@@ -356,8 +360,8 @@ var win = {
   image: winImage,
   x: 655,
   y: Math.floor(Math.random() * 400 + 50),
-  w: 40,
-  h: 60,
+  w: 50,
+  h: 50,
   type: 'win',
 };
 
@@ -616,8 +620,9 @@ function startGame() {
       ctx.fillRect(0, 0, 700, 500);
       ctx.fillStyle = 'white';
       ctx.font = '50px serif';
-      ctx.fillText("You Won!", 250, 245);
-      playingMusic.pause();
+      ctx.fillText('You Win!', 250, 245);
+      finalLevel.pause();
+      gameWin.play()
     }
   else if (lives <= 0) {
     ctx.fillStyle = 'black';
@@ -719,7 +724,7 @@ function startGame() {
           deleteVirus(j);
         }
         canMove = false;
-        if(stage === 1)
+        if(stage === 5)
           {
             levelLoadScreen = 0
             stage = 0
@@ -748,6 +753,9 @@ function startGame() {
               obstacleImage.src = './images/log.png'
               break;
             case 2:
+              gameTracker.cFlag = './images/montenegro-country-flag.png'
+              gameTracker.country = 'Montenegro'
+              tracker()
               canvasBack.image.src = './images/map to montenegro.jpg'
               obstacleImage.src = './images/log.png'
               levelLoadText = "                      GREAT! NEXT STOP IS MONTENGERO"
@@ -757,6 +765,9 @@ function startGame() {
               winImage.src = './images/stefan.jpeg'
               break;
             case 3:
+              gameTracker.cFlag = './images/greece-country-flag.png'
+              gameTracker.country = 'Greece'
+              tracker()
               canvasBack.image.src = './images/map to greece.jpg'
               obstacleImage.src = './images/greekcolumn.png'
               levelLoadText = "            AWESOME! NOW YOU HAVE TO TRAVEL TO GREECE"
@@ -767,6 +778,11 @@ function startGame() {
               createVirus();
               break;
             case 4:
+              playingMusic.pause()
+              finalLevel.play()
+              gameTracker.cFlag = './images/ironhack.svg'
+              gameTracker.country = 'Ironlab'
+              tracker()
               canvasBack.image.src = './images/metalfloor.png'
               obstacleImage.src = './images/metal pipe.png'
               levelLoadText =  "                     YOU'VE COLLECTED ALL THE FORMULAS!"
@@ -774,7 +790,6 @@ function startGame() {
               levelLoadText3 = "                       BE CAREFUL! THE VIRUS IS GROWING!!"
               levelLoadImg.src = '/images/coronabeer4.jpg'
               winImage.src = './images/IronLab.jpg'
-              virusSpeed = .5
               createVirus();
               break;
             default:
