@@ -352,8 +352,8 @@ var win = {
   image: winImage,
   x: 655,
   y: Math.floor(Math.random() * 400 + 50),
-  w: 40,
-  h: 60,
+  w: 50,
+  h: 50,
   type: 'win',
 };
 
@@ -713,7 +713,7 @@ function startGame() {
           deleteVirus(j);
         }
         canMove = false;
-        if(stage === 1)
+        if(stage === 5)
           {
             levelLoadScreen = 0
             stage = 0
@@ -759,7 +759,6 @@ function startGame() {
               obstacleImage.src = './images/metal pipe.png'
               levelLoadText = 'You are headed back to Ironlabs! Good Luck'
               winImage.src = './images/IronLab.jpg'
-              virusSpeed = .5
               createVirus();
               break;
             default:
