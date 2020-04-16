@@ -1,10 +1,49 @@
-@keyframes downFall {
+select {
+    padding: 10px;
+    border-radius: 3px;
+    height: 40px;
+    width: 240px;
+    color: #000;
+    padding-right: 30px;
+    font-size: 14px;
+    border-color: blue;
+    position: relative;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    appearance: none;
+    border: none;
+    background: #fff url('../images/arrow.svg') no-repeat;
+    background-position: right 8px top 52%;
+ cursor: pointer;
+  }
+ 
+  
+  .form__input {
+    color: #000;
+    font-size: 1rem;
+    padding: .5rem .5rem;
+    border-radius: 0.2rem;
+    background-color: rgb(255, 255, 255);
+    border: none;
+    width: 90%;
+    display: block;
+    
+  }
+  
+  .form__input:placeholder-shown + .form__label {
+    opacity: 0;
+    visibility: hidden;
+    -webkit-transform: translateY(-4rem);
+    transform: translateY(-4rem);
+  }
+  
 
-    100%{
+
+
+@keyframes downFall {
+    100% {
         top: 32%;
-        transform: rotate(360deg)
-        scale(30)
-        
+        transform: rotate(360deg) scale(30)
     }
 }
 
@@ -26,7 +65,7 @@
     animation-delay: 0s;
     width: 17px;
     animation-fill-mode: forwards;
-    backface-visibility: hidden;
+    backface-visibility: hidden
 }
 
 .overlay {
@@ -47,8 +86,7 @@ body {
     background-repeat: no-repeat;
     background-size: cover;
     padding: 10px 20px;
-    display: grid;
-    
+    display: grid
 }
 
 #body {
@@ -86,7 +124,6 @@ body {
 .right {
     display: grid;
     width: 400px;
-    
     align-items: center;
     color: #fff
 }
@@ -125,35 +162,41 @@ span {
 }
 
 .playerInfo {
+    
     border-radius: 2%;
-    color: whitesmoke;
+    color: #f5f5f5;
     background-color: #696d87ba;
-    box-shadow: 1px 0px 11px 6px #00000080;
+    box-shadow: 1px 0 11px 6px #00000080;
     backface-visibility: hidden;
-    transition: transform ease 1s;
+    transition: transform ease 1s
 }
 
-.playerInfo:hover{
+.playerInfo:hover {
     transform: scale(1.1);
-    box-shadow: 0px 0px 15px 7px #000000a6;
+    box-shadow: 0 0 15px 7px #000000a6
 }
 
+.player{
+    display: grid;
+    justify-content: center;
+    align-items: center;
+}
 
-
-
-.player > * {
+.player>* {
+    
     padding: 0 10px;
     width: 250px;
     margin-bottom: 15px;
+    margin-left: 10px;
+    margin-top: 5px;
 }
 
 .player input {
-
-    margin-top: 20px;
+    margin-top: 25px
 }
 
 .player label {
-    font-weight: bold;
+    font-weight: 700
 }
 
 .afterText {
@@ -162,81 +205,128 @@ span {
     font-size: 15px;
     margin-top: 10px;
     justify-content: center;
-    text-align: center;
+    text-align: center
 }
 
 .btns {
-    margin-top: 50px;
+    margin-top: 20px;
     text-align: center;
-    width: 400px;
+    width: 400px
 }
 
-.beginGame{
+.beginGame {
+    position: relative;
+    border: none;
     cursor: pointer;
-    justify-self: center;
-    width: 100px;
-    margin-top: 10px;
+    width: 150px;
+   justify-self: center;
+  margin: 15px 15px;
+  padding: 10px 30px;
+  display: inline-block;
+  letter-spacing: 1px;
+  text-align:center;
+  font-weight: bold;
+  box-shadow: 2px 3px 6px 1px #00000080;
+    
+}
+
+.beginGame:nth-child(1){
+    background: #3498db;
+	color: #fff;
+}
+
+.beginGame:nth-child(1):hover {
+	background: #2980b9;
+}
+
+.beginGame:nth-child(1):active {
+	background: #2980b9;
+	top: 2px;
+}
+
+.beginGame:nth-child(2){
+    background:  #2ecc71;
+	color: #fff;
+}
+
+.beginGame:nth-child(2):hover {
+	background: #27ae60;
+}
+
+.beginGame:nth-child(2):active {
+	background: #27ae60;
+	top: 2px;
+}
+
+.beginGame:nth-child(3){
+    background:  #34495e;
+	color: #fff;
+}
+
+.beginGame:nth-child(3):hover {
+	background: #2c3e50;
+}
+
+.beginGame:nth-child(3):active {
+	background: #2c3e50;
+	top: 2px;
 }
 
 video {
-    width: 100%;
+    width: 100%
 }
 
-/* The Modal (background) */
 .modal {
-    display: none; /* Hidden by default */
-    position: fixed; /* Stay in place */
-    z-index: 1; /* Sit on top */
-    padding-top: 100px; /* Location of the box */
+    display: none;
+    position: fixed;
+    z-index: 1;
+    padding-top: 100px;
     left: 0;
     top: 0;
-    width: 100%; /* Full width */
-    height: 90%; /* Full height */
-    overflow: auto; /* Enable scroll if needed */
-    background-color: rgb(0,0,0); /* Fallback color */
-    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-  }
-  
-  /* Modal Content */
-  .modal-content {
-      display: grid;
-    
+    width: 100%;
+    height: 90%;
+    overflow: auto;
+    background-color: #000;
+    background-color: rgba(0, 0, 0, .4)
+}
+
+.modal-content {
+    display: grid;
     margin: auto;
     padding: 10px;
     border: 1px solid #888;
     width: 50%;
-    color: #000;
-  }
+    color: #000
+}
 
-  .modal-header{
-      align-items: center;
-      height: 50px;
-      background-color: #E8E8E8;
-      text-align: center;
-  }
+.modal-header {
+    align-items: center;
+    height: 50px;
+    background-color: #e8e8e8;
+    text-align: center
+}
 
-  .modal-header h2 {
-      margin: 10px 0;
-  }
+.modal-header h2 {
+    margin: 10px 0
+}
 
-  .modal-body{
-      padding: 0 30px 30px 30px;
-    background-color: #E8E8E8;
-  }
+.modal-body {
+    padding: 0 30px 30px 30px;
+    background-color: #e8e8e8
+}
 
-
-  /* The Close Button */
-  .close {
-    color: #aaaaaa;
+.close {
+    color: #aaa;
     float: right;
     margin-right: 25px;
     font-size: 40px;
-    font-weight: bold;
-  }
-  
-  .close:hover,
-  .close:focus {
+    font-weight: 700
+}
+
+.close:focus,
+.close:hover {
     color: #000;
     text-decoration: none;
-    cursor: pointer;
-  }
+    cursor: pointer
+}
+

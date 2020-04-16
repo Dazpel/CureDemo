@@ -7,13 +7,17 @@ let introMusic = document.getElementById('start');
 let playingMusic = document.getElementById('playing');
 let stepMusic = document.getElementById('step');
 let successMusic = document.getElementById('success');
+let finalLevel = document.getElementById('finalLevel');
 let gameOver = document.getElementById('gameOver');
+let gameWin= document.getElementById('gameWin');
 
 introMusic.volume = 0.1;
 playingMusic.volume = 0.03;
 stepMusic.volume = 0.04;
 successMusic.volume = 0.03;
 gameOver.volume = 0.3;
+gameWin.volume = 0.4;
+finalLevel.volume = 0.3;
 
 lives = 3;
 let gameTracker = {
@@ -613,7 +617,8 @@ function startGame() {
       ctx.fillStyle = 'white';
       ctx.font = '50px serif';
       ctx.fillText('You Win!', 250, 245);
-      playingMusic.pause();
+      finalLevel.pause();
+      gameWin.play()
     }
   else if (lives <= 0) {
     ctx.fillStyle = 'black';
@@ -742,12 +747,18 @@ function startGame() {
               obstacleImage.src = './images/log.png'
               break;
             case 2:
+              gameTracker.cFlag = './images/montenegro-country-flag.png'
+              gameTracker.country = 'Montenegro'
+              tracker()
               canvasBack.image.src = './images/map to montenegro.jpg'
               obstacleImage.src = './images/log.png'
               levelLoadText = 'You are headed to Montenegro! Good Luck!'
               winImage.src = './images/stefan.jpeg'
               break;
             case 3:
+              gameTracker.cFlag = './images/greece-country-flag.png'
+              gameTracker.country = 'Greece'
+              tracker()
               canvasBack.image.src = './images/map to greece.jpg'
               obstacleImage.src = './images/greekcolumn.png'
               levelLoadText = 'You are headed to Greece! Good Luck'
@@ -755,6 +766,11 @@ function startGame() {
               createVirus();
               break;
             case 4:
+              playingMusic.pause()
+              finalLevel.play()
+              gameTracker.cFlag = './images/ironhack.svg'
+              gameTracker.country = 'Ironlab'
+              tracker()
               canvasBack.image.src = './images/metalfloor.png'
               obstacleImage.src = './images/greekcolumn.png'
               levelLoadText = 'You are headed back to Ironlabs! Good Luck'

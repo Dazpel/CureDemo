@@ -5,84 +5,59 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-
   <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@300;400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="./css/styles.css" />
-
+  <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
   <title>CureQuest- Covid-19</title>
   <link rel="icon" type="image/png" sizes="32x32" href="/images/covid19.ico">
 </head>
 
 <body id="body">
-  <div class="covid" id="explodeCovid">
-    <img src="./images/covid19.png" alt="">
-  </div>
+  <div class="covid" id="explodeCovid"> <img src="./images/covid19.png" alt=""> </div>
   <div id="mainPage">
-
-    <div class="overlay">
-    </div>
-
+    <div class="overlay"> </div>
     <div class="right">
-      <div class="textBox">
-        <!-- <img src="./images/covid19.png" alt=""> -->
-        <span>Cure</span> <span>Quest</span>
+      <div class="textBox"> <span>Cure</span> <span>Quest</span>
         <p>Covid-19</p>
       </div>
       <div class="playerInfo">
         <div class="player">
-          <div class="player_Name">
-  
-            <label for="pName">Name: </label><input id='name' name="pName" type="text"
-              placeholder="A sexy name, like Joe Exotic">
+          <div class="form__group">
+            <input type="text" class="form__input" id="name" placeholder="Your name... eg. Joe Exotic" required="" />
+            
           </div>
+             
           <div class="player_Gender">
-  
-            <label for="pSex">Gender: </label><select name="pSex" id="sex">
+            <select name="pSex" id="sex" class="custom-select"">
+              <option value="0">Select Gender</option>
               <option value="1">Male</option>
               <option value="2">Female</option>
               <option value="3">Undefined</option>
-            </select>
-          </div>
+            </select> </div>
         </div>
-  
-        <div class="btns">
-          <button class="beginGame" onclick='begin()'>Start Game</button>
-          <!-- Trigger/Open The Modal -->
-          <button class="beginGame" id="myBtn">Instructions</button>
-  
-          <button class="beginGame" id="rickBtn">Free lives!</button>
-        </div>
+        <div class="btns"> 
+          <!-- <button class="btn btn-1 btn-sep icon-info">Start Game</button>
+<button class="btn btn-2 btn-sep icon-cart">Instructions</button>
+<button class="btn btn-3 btn-sep icon-heart">Free lives!</button> -->
+          <button class="beginGame" onclick='begin()'>Start Game</button> 
+          <button class="beginGame" id="myBtn">Instructions</button> 
+            <button class="beginGame" id="rickBtn">Free lives!</button> </div>
         <div class="afterText">
-          <!-- <p>Stefan is from Montenegro or Serbia? Solve the mystery... Join the IronLab
-    </p> -->
+          <!-- <p>Stefan is from Montenegro or Serbia? Solve the mystery... Join the IronLab </p>-->
           <p>Can you stop the spread? Join Ironlab and embark on a quest to find a cure!</p>
         </div>
       </div>
-      
-
       <div id="rickRoll" class="modal">
-
-        <!-- Modal content -->
         <div class="modal-content">
-          <div class="modal-header">
-
-            <span class="close">&times;</span>
+          <div class="modal-header"> <span class="close">&times;</span>
             <p> <i>You know the rules... and so do I!</i> </p>
           </div>
-          <div class="modal-rick">
-            <video id="rolled" src="./images/rickrolled.mp4" loop></video>
-          </div>
+          <div class="modal-rick"> <video id="rolled" src="./images/rickrolled.mp4" loop></video> </div>
         </div>
-
       </div>
-      <!-- The Modal -->
       <div id="myModal" class="modal">
-
-        <!-- Modal content -->
         <div class="modal-content">
-          <div class="modal-header">
-
-            <span class="close">&times;</span>
+          <div class="modal-header"> <span class="close">&times;</span>
             <h2>Game Instructions</h2>
           </div>
           <div class="modal-body">
@@ -106,76 +81,24 @@
               button </p>
           </div>
         </div>
-
-
       </div>
-      
-
     </div>
   </div>
   <div id="game-board">
     <div class="overlay"></div>
     <div id="gameTracker">
-
       <div id="gInfo">
         <h1>Country: Level 1/5</h1>
         <h3>PlayerName HP:100 - Lysols Left: 3</h3>
       </div>
       <div id="gFlag"><img src="../images/colombia-flag-country.png" alt=""></div>
-
-    </div>
-    <canvas id="canvas" width="700" height="500"></canvas>
-  </div>
-  <audio id="start" src="./music/Intrusión.ogg" loop="loop"></audio>
-  <audio id="playing" src="./music/Battleship.ogg" loop="loop"></audio>
-  <audio id="step" src="./music/step1s.wav" loop="loop"></audio>
-  <audio id="success" src="./music/sucess.wav"></audio>
-  <audio id="gameOver" src="./music/gameOver.mp3"></audio>
+    </div><canvas id="canvas" width="700" height="500"></canvas>
+  </div><audio id="start" src="./music/Intrusión.ogg" loop="loop"></audio> <audio id="playing"
+    src="./music/Battleship.ogg" loop="loop"></audio> <audio id="step" src="./music/step1s.wav" loop="loop"></audio>
+  <audio id="success" src="./music/sucess.wav"></audio> <audio id="gameOver" src="./music/gameOver.mp3"></audio> <audio
+    id="gameWin" src="./music/winGame.wav"></audio> <audio id="finalLevel" src="./music/winGame.wav" loop></audio>
   <script type="text/javascript" src="js/index.js"></script>
-  <script type="text/javascript">
-    // Get the modal
-    var modal = document.getElementById("myModal");
-    var rick = document.getElementById("rickRoll");
-    var rickVideo = document.getElementById('rolled');
-
-    // Get the button that opens the modal
-    var btn = document.getElementById("myBtn");
-    var rBtn = document.getElementById("rickBtn");
-
-    // Get the <span> element that closes the modal
-    var span = document.getElementsByClassName("close")[1];
-    var spann = document.getElementsByClassName("close")[0];
-
-    // When the user clicks the button, open the modal 
-    btn.onclick = function () {
-      modal.style.display = "block";
-    }
-    rBtn.onclick = function () {
-      rick.style.display = "block";
-      introMusic.pause()
-      rickVideo.play()
-    }
-    // When the user clicks on <span> (x), close the modal
-    span.onclick = function () {
-      modal.style.display = "none";
-    }
-    spann.onclick = function () {
-      rick.style.display = "none";
-      introMusic.play()
-      rickVideo.pause()
-    }
-    // When the user clicks anywhere outside of the modal, close it
-    window.onclick = function (event) {
-      if (event.target == modal) {
-        modal.style.display = "none";
-      }
-      if (event.target == rick) {
-        rick.style.display = "none";
-        introMusic.play()
-        rickVideo.pause()
-      }
-    }
-  </script>
+  <script type="text/javascript" src="js/modal.js"></script>
 </body>
 
 </html>
