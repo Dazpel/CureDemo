@@ -106,9 +106,12 @@ canvasImage.src = './images/mat to colombia.jpg'
 let level = 1
 let stage = 1
 let levelLoadScreen = 0
-let levelLoadText = 'You are headed to Colombia! Good Luck!'
+let levelLoadText = `YOU'RE ON YOUR WAY TO COLOMBIA TO FIND DR. JUANCHITO!`
+let levelLoadText2 = "THANKFULLY THIS FIRST TRIP WON'T REQUIRE YOU TO TRAVEL AT NIGHT ;)"
+let levelLoadText3 = "MOVE QUICKLY THOUGH! THE CORONA FOG WILL DETERIORATE YOUR HEALTH!"
 let virusSpeed = 0.25
-
+let levelLoadImg = new Image();
+levelLoadImg.src = '/images/coronabeer.jpg'
 /* HUGO CODE */
 
 //  NEW IMAGES
@@ -259,6 +262,7 @@ let stefan = new Image();
 stefan.src = '/images/stefan.jpeg'
 let niko = new Image();
 niko.src = '/images/Niko.png'
+
 function winningShade() {
   ctx.drawImage(win.image, win.x, win.y, win.w, win.h);
 }
@@ -578,7 +582,7 @@ function detectWin() {
     // collision detected!
     playingMusic.pause();
     successMusic.play();
-    //gameTracker.level++;
+    gameTracker.level++;
     newLevel = true;
     win.w = 0;
     win.h = 0;
@@ -625,14 +629,16 @@ function startGame() {
     gameOver.play();
   }
   else{
-    if(levelLoadScreen <= 300)
+    if(levelLoadScreen <= 800)
     {
+      ctx.clearRect(0,0,700,500)
       levelLoadScreen++
-      ctx.fillStyle = 'black'
-      ctx.fillRect(0,0,700,500)
-      ctx.fillStyle = "white"
-      ctx.font = '25px serif'
-      ctx.fillText(levelLoadText,150,245)
+      ctx.drawImage(levelLoadImg,0,120,700,380)
+      ctx.fillStyle = "lightgreen"
+      ctx.font = '20px serif'
+      ctx.fillText(levelLoadText,60,35, 600)
+      ctx.fillText(levelLoadText2,60,70, 600)
+      ctx.fillText(levelLoadText3,60,105, 600)
     }
     else 
     {
@@ -744,20 +750,29 @@ function startGame() {
             case 2:
               canvasBack.image.src = './images/map to montenegro.jpg'
               obstacleImage.src = './images/log.png'
-              levelLoadText = 'You are headed to Montenegro! Good Luck!'
+              levelLoadText = "                      GREAT! NEXT STOP IS MONTENGERO"
+              levelLoadText2 = "           THERE YOU WILL FIND MAD SCIENTIST STEFAN"
+              levelLoadText3 = "MANDOTORY QUARANTINE: YOU CAN ONLY TRAVEL AT NIGHT... "
+              levelLoadImg.src = '/images/coronabeer2.jpg'
               winImage.src = './images/stefan.jpeg'
               break;
             case 3:
               canvasBack.image.src = './images/map to greece.jpg'
               obstacleImage.src = './images/greekcolumn.png'
-              levelLoadText = 'You are headed to Greece! Good Luck'
+              levelLoadText = "            AWESOME! NOW YOU HAVE TO TRAVEL TO GREECE"
+              levelLoadText2 = "            THERE YOU WILL FIND NIKO TIKO THE PHYSICIAN"
+              levelLoadText3 = "                                WATCH OUT FOR THE VIRUS!"
+              levelLoadImg.src = '/images/coronabeer3.jpg'
               winImage.src = './images/niko.png'
               createVirus();
               break;
             case 4:
               canvasBack.image.src = './images/metalfloor.png'
               obstacleImage.src = './images/metal pipe.png'
-              levelLoadText = 'You are headed back to Ironlabs! Good Luck'
+              levelLoadText =  "                     YOU'VE COLLECTED ALL THE FORMULAS!"
+              levelLoadText2 = "         NOW ALL THAT'S LEFT IS TO BRING THE DATA BACK TO THE IRONLAB"
+              levelLoadText3 = "                       BE CAREFUL! THE VIRUS IS GROWING!!"
+              levelLoadImg.src = '/images/coronabeer4.jpg'
               winImage.src = './images/IronLab.jpg'
               virusSpeed = .5
               createVirus();
