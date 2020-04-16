@@ -188,15 +188,6 @@ function drawColumn() {
     );
   }
 }
-let colCanvas = new Image();
-colCanvas.src = '/images/mat to colombia.jpg'
-let montCanvas = new Image();
-montCanvas.src = '/images/map to montenegro.jpg'
-let grceCanvas = new Image();
-grceCanvas.src = '/images/map to greece.jpg'
-let metalFloorCanvas = new Image();
-metalFloorCanvas.src = '/images/metalfloor.png'
-
 
 function drawColCanvas() {
   ctx.drawImage(
@@ -674,13 +665,14 @@ function startGame() {
         detectVirusObsCollision(virus[j],j)
       }
       direction = ''
-    } else {
+    } else { 
       lightTime = 100;
       virusCount+= .25;
     }
     lightCounter++;
     // drawCar();
     drawPlayer();
+    drawName();
     //drawLives();
     drawContamination();
     if(newLevel)
