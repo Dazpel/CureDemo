@@ -28,23 +28,91 @@
         <span>Cure</span> <span>Quest</span>
         <p>Covid-19</p>
       </div>
-      <div class="player">
-        <label for="pName">Name: </label><input id='name' name="pName" type="text">
-        <label for="pSex">Player Sex: </label><select name="pSex" id="sex">
-          <option value="1">Male</option>
-          <option value="2">Female</option>
-          <option value="3">Undefined</option>
-        </select>
+      <div class="playerInfo">
+        <div class="player">
+          <div class="player_Name">
+  
+            <label for="pName">Name: </label><input id='name' name="pName" type="text"
+              placeholder="A sexy name, like Joe Exotic">
+          </div>
+          <div class="player_Gender">
+  
+            <label for="pSex">Gender: </label><select name="pSex" id="sex">
+              <option value="1">Male</option>
+              <option value="2">Female</option>
+              <option value="3">Undefined</option>
+            </select>
+          </div>
+        </div>
+  
+        <div class="btns">
+          <button class="beginGame" onclick='begin()'>Start Game</button>
+          <!-- Trigger/Open The Modal -->
+          <button class="beginGame" id="myBtn">Instructions</button>
+  
+          <button class="beginGame" id="rickBtn">Free lives!</button>
+        </div>
+        <div class="afterText">
+          <!-- <p>Stefan is from Montenegro or Serbia? Solve the mystery... Join the IronLab
+    </p> -->
+          <p>Can you stop the spread? Join Ironlab and embark on a quest to find a cure!</p>
+        </div>
       </div>
-      <button onclick='begin()'>Start Game</button>
-      <div class="afterText">
-        <!-- <p>Stefan is from Montenegro or Serbia? Solve the mystery... Join the IronLab
-        </p> -->
-        <p>Can you stop the spread? Join Ironlab and embark on a quest to find a cure!</p>
+      
+
+      <div id="rickRoll" class="modal">
+
+        <!-- Modal content -->
+        <div class="modal-content">
+          <div class="modal-header">
+
+            <span class="close">&times;</span>
+            <p> <i>You know the rules... and so do I!</i> </p>
+          </div>
+          <div class="modal-rick">
+            <video id="rolled" src="./images/rickrolled.mp4" loop></video>
+          </div>
+        </div>
+
       </div>
+      <!-- The Modal -->
+      <div id="myModal" class="modal">
+
+        <!-- Modal content -->
+        <div class="modal-content">
+          <div class="modal-header">
+
+            <span class="close">&times;</span>
+            <h2>Game Instructions</h2>
+          </div>
+          <div class="modal-body">
+            <p>Your character begins at the far left of the map and your mission is to get it to the Goal Zone which is
+              a picture that will change depending on the country you currently are.</p>
+            <p>Each level have different elements that will make your journey not so easy, as you progress in the game
+              you'll come across:</p>
+            <ol>
+              <li><strong>Columns:</strong> This will be present in all levels, and will stop you from walking in a
+                straight direction, you need to get around them.</li>
+              <li><strong>Corona-Fog:</strong> Be careful, if the fog reaches your character, it will begin to lose HP
+                until you eventually die, be aware that as the game progresses the fog will become increasingly faster.
+              </li>
+              <li><strong>Virus:</strong> Don't touch them! these blos are very dangerous, they will take a full live
+                out of your count. </li>
+              <li><strong>Lights On/Off:</strong> No, we don't mean a club. Since you are traveling during the night, as
+                to avoid getting caught by the police. once the screen becomes clear (lights on) your player won't be
+                able to move, so... be fast </li>
+            </ol>
+            <p><strong>Pro Tip:</strong> If you want 10 free lives at the beginning of the game, press the "Free Lives"
+              button </p>
+          </div>
+        </div>
+
+
+      </div>
+      
+
     </div>
   </div>
-
   <div id="game-board">
     <div class="overlay"></div>
     <div id="gameTracker">
@@ -64,8 +132,49 @@
   <audio id="success" src="./music/sucess.wav"></audio>
   <audio id="gameOver" src="./music/gameOver.mp3"></audio>
   <script type="text/javascript" src="js/index.js"></script>
-  <script>
+  <script type="text/javascript">
+    // Get the modal
+    var modal = document.getElementById("myModal");
+    var rick = document.getElementById("rickRoll");
+    var rickVideo = document.getElementById('rolled');
 
+    // Get the button that opens the modal
+    var btn = document.getElementById("myBtn");
+    var rBtn = document.getElementById("rickBtn");
+
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[1];
+    var spann = document.getElementsByClassName("close")[0];
+
+    // When the user clicks the button, open the modal 
+    btn.onclick = function () {
+      modal.style.display = "block";
+    }
+    rBtn.onclick = function () {
+      rick.style.display = "block";
+      introMusic.pause()
+      rickVideo.play()
+    }
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function () {
+      modal.style.display = "none";
+    }
+    spann.onclick = function () {
+      rick.style.display = "none";
+      introMusic.play()
+      rickVideo.pause()
+    }
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function (event) {
+      if (event.target == modal) {
+        modal.style.display = "none";
+      }
+      if (event.target == rick) {
+        rick.style.display = "none";
+        introMusic.play()
+        rickVideo.pause()
+      }
+    }
   </script>
 </body>
 
