@@ -110,7 +110,7 @@ canvasImage.src = './images/mat to colombia.jpg'
 let level = 1
 let stage = 1
 let levelLoadScreen = 0
-let levelLoadText = 'You are headed to Columbia! Good Luck!'
+let levelLoadText = 'You are headed to Colombia! Good Luck!'
 let virusSpeed = 0.25
 
 /* HUGO CODE */
@@ -354,10 +354,10 @@ let obstacle = [];
 let virus = [];
 var win = {
   image: winImage,
-  x: 660,
+  x: 655,
   y: Math.floor(Math.random() * 400 + 50),
-  w: 40,
-  h: 60,
+  w: 50,
+  h: 50,
   type: 'win',
 };
 
@@ -718,7 +718,7 @@ function startGame() {
           deleteVirus(j);
         }
         canMove = false;
-        if(stage === 1)
+        if(stage === 5)
           {
             levelLoadScreen = 0
             stage = 0
@@ -772,10 +772,9 @@ function startGame() {
               gameTracker.country = 'Ironlab'
               tracker()
               canvasBack.image.src = './images/metalfloor.png'
-              obstacleImage.src = './images/greekcolumn.png'
+              obstacleImage.src = './images/metal pipe.png'
               levelLoadText = 'You are headed back to Ironlabs! Good Luck'
-              winImage.src = './images/niko.png'
-              virusSpeed = .5
+              winImage.src = './images/IronLab.jpg'
               createVirus();
               break;
             default:
