@@ -1,28 +1,19 @@
 @keyframes downFall {
 
-    to{
+    100%{
+        top: 32%;
+        transform: rotate(360deg)
+        scale(30)
         
-    top: 32%;
-    transform: rotate(90deg);
-    
     }
 }
-
-@keyframes Explode {
-
-    to{
-        
-    transform: scale(30);
-    }
-}
-
 
 .covid {
     position: absolute;
-    opacity: 0.7;
+    opacity: .7;
     width: 90%;
-    height: 100%;
-    z-index: -1;
+    height: 90%;
+    z-index: -1
 }
 
 .covid img {
@@ -30,12 +21,12 @@
     position: absolute;
     left: 51%;
     top: 0;
-    animation-name: downFall, Explode;
-    animation-duration: 10s, 1s;
-    animation-delay: 0ms, 9.5s;
+    animation-name: downFall;
+    animation-duration: 20s;
+    animation-delay: 0s;
     width: 17px;
-    animation-fill-mode: forwards;  
-
+    animation-fill-mode: forwards;
+    backface-visibility: hidden;
 }
 
 .overlay {
@@ -46,86 +37,75 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: rgba(0, 0, 0, 0.30);
+    background-color: rgba(0, 0, 0, .3);
     z-index: -1;
-    display: block;
+    display: block
 }
-
 
 body {
     font-family: 'Comic Neue', cursive;
     background-repeat: no-repeat;
     background-size: cover;
     padding: 10px 20px;
-    text-align: center;
     display: grid;
-    text-align: center;
+    
 }
 
 #body {
-    background-image: url('../images/pandemia.jpg');
+    background-image: url(../images/pandemia.jpg)
 }
 
-
 #game-board {
-
     height: 95vh;
     display: none;
-    justify-content: center;
-
+    justify-content: center
 }
 
 #gameTracker {
     display: grid;
     justify-content: center;
-    grid-template-columns: max-content min-content;
-
+    grid-template-columns: max-content min-content
 }
 
 #gInfo {
     margin-right: 20px;
-    color: #fff;
+    color: #fff
 }
 
-
-
 #gFlag img {
-    width: 80px;
+    width: 80px
 }
 
 #mainPage {
     height: 95vh;
     display: grid;
     justify-content: center;
-    align-items: center;
-
+    align-items: center
 }
-
 
 .right {
     display: grid;
     width: 400px;
-    justify-content: center;
+    
     align-items: center;
-    color: white;
-
+    color: #fff
 }
 
 .textBox {
-
+    text-align: center;
     margin-bottom: 70px;
-    width: 100%;
+    width: 100%
 }
 
 .textBox p,
 span {
-    margin: 0;
+    margin: 0
 }
 
 .textBox>span {
     font-weight: lighter;
     font-size: 70px;
-    letter-spacing: 5px;
+    letter-spacing: 5px
 }
 
 .textBox img {
@@ -134,27 +114,129 @@ span {
     position: absolute;
     left: 500px;
     top: 146px;
-    opacity: 0.8;
+    opacity: .8
 }
 
 .textBox>p {
     font-weight: bolder;
     font-style: italic;
     font-size: 20px;
-    letter-spacing: 3px;
+    letter-spacing: 3px
+}
+
+.playerInfo {
+    border-radius: 2%;
+    color: whitesmoke;
+    background-color: #696d87ba;
+    box-shadow: 1px 0px 11px 6px #00000080;
+    backface-visibility: hidden;
+    transition: transform ease 1s;
+}
+
+.playerInfo:hover{
+    transform: scale(1.1);
+    box-shadow: 0px 0px 15px 7px #000000a6;
 }
 
 
+
+
+.player > * {
+    padding: 0 10px;
+    width: 250px;
+    margin-bottom: 15px;
+}
+
 .player input {
-    font-weight: bold;
+
     margin-top: 20px;
 }
 
-.afterText {
+.player label {
     font-weight: bold;
+}
+
+.afterText {
+    font-weight: 700;
     display: grid;
     font-size: 15px;
     margin-top: 10px;
     justify-content: center;
-
+    text-align: center;
 }
+
+.btns {
+    margin-top: 50px;
+    text-align: center;
+    width: 400px;
+}
+
+.beginGame{
+    cursor: pointer;
+    justify-self: center;
+    width: 100px;
+    margin-top: 10px;
+}
+
+video {
+    width: 100%;
+}
+
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 90%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  }
+  
+  /* Modal Content */
+  .modal-content {
+      display: grid;
+    
+    margin: auto;
+    padding: 10px;
+    border: 1px solid #888;
+    width: 50%;
+    color: #000;
+  }
+
+  .modal-header{
+      align-items: center;
+      height: 50px;
+      background-color: #E8E8E8;
+      text-align: center;
+  }
+
+  .modal-header h2 {
+      margin: 10px 0;
+  }
+
+  .modal-body{
+      padding: 0 30px 30px 30px;
+    background-color: #E8E8E8;
+  }
+
+
+  /* The Close Button */
+  .close {
+    color: #aaaaaa;
+    float: right;
+    margin-right: 25px;
+    font-size: 40px;
+    font-weight: bold;
+  }
+  
+  .close:hover,
+  .close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+  }
