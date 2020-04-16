@@ -106,7 +106,7 @@ canvasImage.src = './images/mat to colombia.jpg'
 let level = 1
 let stage = 1
 let levelLoadScreen = 0
-let levelLoadText = 'You are headed to Columbia! Good Luck!'
+let levelLoadText = 'You are headed to Colombia! Good Luck!'
 let virusSpeed = 0.25
 
 /* HUGO CODE */
@@ -423,7 +423,7 @@ function detectMove(move) {
         if (player.x <= 0) {
           console.log('Border');
         } else {
-          player.x -= 30;
+          player.x -= 5;
         }
         break;
       case 'right':
@@ -431,7 +431,7 @@ function detectMove(move) {
         if (player.x >= 636) {
           console.log('Border');
         } else {
-          player.x += 30;
+          player.x += 5;
         }
         break;
       case 'up':
@@ -439,7 +439,7 @@ function detectMove(move) {
         if (player.y <= 0) {
           console.log('Border');
         } else {
-          player.y -= 30;
+          player.y -= 5;
         }
         break;
       case 'down':
@@ -449,14 +449,14 @@ function detectMove(move) {
           if (player.y >= 336) {
             console.log('Border');
           } else {
-            player.y += 30;
+            player.y += 5;
           }
         }
         else{
           if (player.y >= 436) {
             console.log('Border');
           } else {
-            player.y += 30;
+            player.y += 5;
           }
         }
         break;
@@ -555,11 +555,9 @@ function detectVirusCollision() {
   ) {
     // collision detected!
     contamination+=level;
-    if (contamination%4 === 0)
-    {
-      gameTracker.hp--
-    }
-    if (contamination === 400) {
+    
+    gameTracker.hp = 100 - Math.floor(contamination/4)
+    if (contamination >= 400) {
       gameTracker.hp = 100
       lives--;
       contamination = 0;
@@ -614,9 +612,18 @@ function startGame() {
       ctx.fillRect(0, 0, 700, 500);
       ctx.fillStyle = 'white';
       ctx.font = '50px serif';
-      ctx.fillText("The Cure has been created! You've saved the world!", 250, 245);
+      ctx.fillText("You Won!", 250, 245);
       playingMusic.pause();
     }
+  else if (lives <= 0) {
+    ctx.fillStyle = 'black';
+    ctx.fillRect(0, 0, 700, 500);
+    ctx.fillStyle = 'white';
+    ctx.font = '50px serif';
+    ctx.fillText('Game Over', 250, 245);
+    playingMusic.pause();
+    gameOver.play();
+  }
   else{
     if(levelLoadScreen <= 300)
     {
@@ -644,6 +651,13 @@ function startGame() {
       }
 
       for (j = 0; j < virus.length; j++) {
+        if(level === 4)
+        {
+          virus[j].x -= .05
+          virus[j].y -= .05
+          virus[j].w += .1
+          virus[j].h += .1
+        }
         drawVirusObs(virus[j]);
       }
       winningShade();
@@ -699,7 +713,7 @@ function startGame() {
           deleteVirus(j);
         }
         canMove = false;
-        if(stage === 5)
+        if(stage === 1)
           {
             levelLoadScreen = 0
             stage = 0
@@ -754,15 +768,7 @@ function startGame() {
         }
       }
       
-      if (lives <= 0) {
-        ctx.fillStyle = 'black';
-        ctx.fillRect(0, 0, 700, 500);
-        ctx.fillStyle = 'white';
-        ctx.font = '50px serif';
-        ctx.fillText('Game Over', 250, 245);
-        playingMusic.pause();
-        gameOver.play();
-      }
+      
     }
   }
   animateId = window.requestAnimationFrame(startGame); //Game rendering -infinite loop that goes super fast
