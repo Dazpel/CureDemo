@@ -21,7 +21,7 @@ let gameTracker = {
   sex: 1,
   country: 'Colombia',
   level: 1,
-  hp: 100,
+  hp: 100 ,
   lives: lives,
   cFlag: '../images/colombia-flag-country.png',
   alive: true,
@@ -99,16 +99,27 @@ let contamination = 0;
 let currentLoopIndex = 0;
 let frameCount = 0;
 let virusCount = 0;
+let obstacleImage = new Image()
+obstacleImage.src =  './images/log.png'
+let covidImage = new Image()
+covidImage.src = './images/covid19.png'
+let canvasImage = new Image()
+canvasImage.src = './images/mat to colombia.jpg'
+let level = 1
+let stage = 1
+let levelLoadScreen = 0
+let levelLoadText = 'You are headed to Columbia! Good Luck!'
 
 /* HUGO CODE */
 
 //  NEW IMAGES
-let canvasSize = {
-  x: 0,
-  y: 0,
-  w: 700,
-  h: 500,
-};
+let canvasBack = {
+  image: canvasImage,
+  x:0,
+  y:0,
+  w:700,
+  h:500,
+}
 let colCanvas = new Image();
 colCanvas.src = '/images/mat to colombia.jpg';
 let montCanvas = new Image();
@@ -125,6 +136,8 @@ let metalFloorCanvas = new Image();
 metalFloorCanvas.src = '/images/metalfloor.png';
 let column = new Image();
 column.src = '/images/greek-column.png';
+let fogImg = new Image();
+fogImg.src = './images/greenfog_1024.png'
 
 let hugostacle = [
   {
@@ -146,6 +159,15 @@ let hugostacle = [
     h: 200,
   },
 ];
+
+let fog = {
+  x: 0,
+  y: 0,
+  w: 0,
+  h: 500,
+  image: fogImg
+}
+
 function drawLog() {
   for (i = 0; i < hugostacle.length; i++) {
     ctx.drawImage(
@@ -311,6 +333,7 @@ var win = {
 function createObstacles() {
   for (i = 0; i < 3; i++) {
     let obs = {
+      image: obstacleImage,
       x: 50 + Math.floor(Math.random() * 125) + 200 * i,
       y: Math.floor(Math.random() * 50 + 250 * (i % 2)),
       w: 30,
@@ -322,6 +345,7 @@ function createObstacles() {
 function createVirus() {
   for (i = 0; i < 3; i++) {
     let obs = {
+      image: covidImage,
       x: 50 + Math.floor(Math.random() * 125) + 200 * i,
       y: Math.floor(Math.random() * 50 + 250 * (i % 2)),
       w: 50,
@@ -337,12 +361,14 @@ function deleteVirus(index) {
   virus.splice(index, 1);
 }
 function drawObstacles(obj) {
-  ctx.fillStyle = 'red';
-  ctx.fillRect(obj.x, obj.y, obj.w, obj.h);
+  // ctx.fillStyle = 'red';
+  // ctx.fillRect(obj.x, obj.y, obj.w, obj.h);
+  ctx.drawImage(obj.image, obj.x, obj.y, obj.w, obj.h)
 }
 function drawVirusObs(obj) {
-  ctx.fillStyle = 'blue';
-  ctx.fillRect(obj.x, obj.y, obj.w, obj.h);
+  // ctx.fillStyle = 'blue';
+  // ctx.fillRect(obj.x, obj.y, obj.w, obj.h);
+  ctx.drawImage(obj.image, obj.x, obj.y, obj.w, obj.h)
 }
 function winningShade() {
   ctx.fillStyle = 'blue';
@@ -353,12 +379,15 @@ function lightsOff() {
   ctx.fillRect(0, 0, 700, 500);
 }
 function drawCanvas() {
-  ctx.fillStyle = 'green';
-  ctx.fillRect(0, 0, 700, 500);
+  // ctx.fillStyle = 'green';
+  // ctx.fillRect(0, 0, 700, 500);
+  ctx.drawImage(canvasBack.image,canvasBack.x,canvasBack.y,canvasBack.w,canvasBack.h)
 }
 function drawVirus(i) {
-  ctx.fillStyle = 'rgba(255,0,0,.25)';
-  ctx.fillRect(0, 0, -25 + i, 500);
+  // ctx.fillStyle = 'rgba(255,0,0,.25)';
+  // ctx.fillRect(0, 0, -25 + i, 500);
+  ctx.drawImage(fog.image, fog.x, fog.y, fog.w, fog.h)
+  fog.w=i-25 
 }
 /*function drawCar() {
   ctx.drawImage(car.image, car.x, car.y, car.w, car.h);
@@ -466,7 +495,7 @@ function detectCollision(obs) {
   }
   // });
 }
-function detectVirusObsCollision(obs) {
+function detectVirusObsCollision(obs,index) {
   var a = { x: obs.x, y: obs.y, width: obs.w, height: obs.h }; //Our obstacles
   var b = { x: player.x, y: player.y, width: player.w, height: player.h }; //Our player
   if (
@@ -478,7 +507,7 @@ function detectVirusObsCollision(obs) {
     // collision detected!
     lives--;
     tracker()
-    virus.splice(obs, 1);
+    virus.splice(index, 1);
   }
 }
 function detectVirusCollision() {
@@ -491,12 +520,17 @@ function detectVirusCollision() {
     a.y + a.height > b.y
   ) {
     // collision detected!
-    contamination++;
-    if (contamination === 200) {
+    contamination+=level;
+    if (contamination%4 === 0)
+    {
+      gameTracker.hp--
+    }
+    if (contamination === 400) {
+      gameTracker.hp = 100
       lives--;
-      tracker()
       contamination = 0;
     }
+    tracker()
   }
 }
 function detectWin() {
@@ -536,88 +570,127 @@ function drawContamination() {
   ctx.fillStyle = 'red';
   ctx.fillRect(player.x, player.y - 10, 40, 10);
   ctx.fillStyle = 'green';
-  ctx.fillRect(player.x, player.y - 10, 40 - 40 * (contamination / 200), 10);
+  ctx.fillRect(player.x, player.y - 10, 40 - 40 * (contamination / 400), 10);
 }
 function startGame() {
-  ctx.clearRect(0, 0, 700, 500);
-  
-  tracker();
-
-  stepMusic.pause();
-
-  drawCanvas();
-
-  drawVirus(virusCount);
-
-  for (i = 0; i < obstacle.length; i++) {
-    drawObstacles(obstacle[i]);
+  if(levelLoadScreen <= 300)
+  {
+    levelLoadScreen++
+    ctx.fillStyle = 'black'
+    ctx.fillRect(0,0,700,500)
+    ctx.fillStyle = "white"
+    ctx.font = '25px serif'
+    ctx.fillText(levelLoadText,150,245)
   }
+  else 
+  {
+    ctx.clearRect(0, 0, 700, 500);
+    
+    tracker();
 
-  for (j = 0; j < virus.length; j++) {
-    drawVirusObs(virus[j]);
-  }
-  winningShade();
-  step();
-  if (lightCounter % lightTime === lightTime - 1) {
-    lightSwitch = !lightSwitch;
-  }
-  if (lightSwitch) {
-    lightsOff();
-    lightTime = 500;
-    virusCount += 0.5;
-    detectWin();
-    detectMove(canMove);
-    detectVirusCollision();
+    stepMusic.pause();
+
+    drawCanvas();
+
+    drawVirus(virusCount);
+
     for (i = 0; i < obstacle.length; i++) {
-      detectCollision(obstacle[i]);
+      drawObstacles(obstacle[i]);
     }
+
     for (j = 0; j < virus.length; j++) {
-      detectVirusObsCollision(virus[j]);
+      drawVirusObs(virus[j]);
     }
-    direction = '';
-  } else {
-    lightTime = 100;
-  }
-  lightCounter++;
-  // drawCar();
-  drawPlayer();
-  drawName();
-  // drawLives();
-  drawContamination();
-  if (newLevel) {
-    virusCount = 0;
-    lightSwitch = false;
-    lightCounter = 0;
-    //clear obstacle array
-    for (i = 0; i < obstacle.length; i++) {
-      deleteObstacle(i);
+    winningShade();
+    step();
+    if (lightCounter % lightTime === lightTime - 1) {
+      lightSwitch = !lightSwitch;
     }
-    for (j = 0; j < virus.length; j++) {
-      deleteVirus(j);
-    }
-    canMove = false;
-    if (player.x > 0) {
-      player.x -= 10;
+    if (lightSwitch) {
+      lightsOff();
+      lightTime = 500;
+      virusCount += 0.25;
+      detectWin();
+      detectMove(canMove);
+      detectVirusCollision();
+      for (i = 0; i < obstacle.length; i++) {
+        detectCollision(obstacle[i]);
+      }
+      for (j = 0; j < virus.length; j++) {
+        detectVirusObsCollision(virus[j],j);
+      }
+      direction = '';
     } else {
-      //create new obstacle array
-      createObstacles();
-      createVirus();
-      canMove = true;
-      newLevel = false;
-      win.y = Math.floor(Math.random() * 400 + 50);
-      win.h = 50;
-      win.w = 50;
-      lightCounter = 0;
+      lightTime = 100;
+      virusCount+= .25
     }
-  }
-  if (lives <= 0) {
-    ctx.fillStyle = 'black';
-    ctx.fillRect(0, 0, 700, 500);
-    ctx.fillStyle = 'white';
-    ctx.font = '50px serif';
-    ctx.fillText('Game Over', 250, 245);
-    playingMusic.pause();
-    gameOver.play();
+    lightCounter++;
+    // drawCar();
+    drawPlayer();
+    drawName();
+    // drawLives();
+    drawContamination();
+    if (newLevel) {
+      virusCount = 0;
+      lightSwitch = false;
+      lightCounter = 0;
+      //clear obstacle array
+      for (i = 0; obstacle.length > 0;) {
+        deleteObstacle(i);
+      }
+      for (j = 0; virus.length > 0;) {
+        deleteVirus(j);
+      }
+      canMove = false;
+      if(stage === 5)
+        {
+          levelLoadScreen = 0
+          stage = 1
+          level++
+          player.x = 0
+          player.y = 0
+        }
+      if (player.x > 0) {
+        player.x -= 10;
+      } else {
+        //create new obstacle array
+        createObstacles();
+        createVirus();
+        canMove = true;
+        newLevel = false;
+        win.y = Math.floor(Math.random() * 300 + 50);
+        win.h = 50;
+        win.w = 50;
+        lightCounter = 0;
+        stage++
+
+        switch(level)
+        {
+          case 1:
+            canvasBack.image.src = './images/mat to colombia.jpg'
+            obstacleImage.src = './images/log.png'
+            break;
+          case 2:
+            canvasBack.image.src = './images/map to montenegro.jpg'
+            obstacleImage.src = './images/greekcolumn.png'
+            levelLoadText = 'You are headed to Montenegro! Good Luck!'
+            break;
+          case 3:
+            break;
+          case 4:
+            break;
+        }
+      }
+    }
+    if (lives <= 0) {
+      ctx.fillStyle = 'black';
+      ctx.fillRect(0, 0, 700, 500);
+      ctx.fillStyle = 'white';
+      ctx.font = '50px serif';
+      ctx.fillText('Game Over', 250, 245);
+      playingMusic.pause();
+      gameOver.play();
+    }
   }
   animateId = window.requestAnimationFrame(startGame); //Game rendering -infinite loop that goes super fast
 }
