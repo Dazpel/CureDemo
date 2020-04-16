@@ -350,7 +350,7 @@ let obstacle = [];
 let virus = [];
 var win = {
   image: winImage,
-  x: 660,
+  x: 655,
   y: Math.floor(Math.random() * 400 + 50),
   w: 40,
   h: 60,
@@ -423,7 +423,7 @@ function detectMove(move) {
         if (player.x <= 0) {
           console.log('Border');
         } else {
-          player.x -= 5;
+          player.x -= 30;
         }
         break;
       case 'right':
@@ -431,7 +431,7 @@ function detectMove(move) {
         if (player.x >= 636) {
           console.log('Border');
         } else {
-          player.x += 5;
+          player.x += 30;
         }
         break;
       case 'up':
@@ -439,7 +439,7 @@ function detectMove(move) {
         if (player.y <= 0) {
           console.log('Border');
         } else {
-          player.y -= 5;
+          player.y -= 30;
         }
         break;
       case 'down':
@@ -449,14 +449,14 @@ function detectMove(move) {
           if (player.y >= 336) {
             console.log('Border');
           } else {
-            player.y += 5;
+            player.y += 30;
           }
         }
         else{
           if (player.y >= 436) {
             console.log('Border');
           } else {
-            player.y += 5;
+            player.y += 30;
           }
         }
         break;
@@ -614,7 +614,7 @@ function startGame() {
       ctx.fillRect(0, 0, 700, 500);
       ctx.fillStyle = 'white';
       ctx.font = '50px serif';
-      ctx.fillText('You Win!', 250, 245);
+      ctx.fillText("The Cure has been created! You've saved the world!", 250, 245);
       playingMusic.pause();
     }
   else{
@@ -742,9 +742,9 @@ function startGame() {
               break;
             case 4:
               canvasBack.image.src = './images/metalfloor.png'
-              obstacleImage.src = './images/greekcolumn.png'
+              obstacleImage.src = './images/metal pipe.png'
               levelLoadText = 'You are headed back to Ironlabs! Good Luck'
-              winImage.src = './images/niko.png'
+              winImage.src = './images/IronLab.jpg'
               virusSpeed = .5
               createVirus();
               break;
